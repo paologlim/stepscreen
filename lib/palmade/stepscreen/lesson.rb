@@ -1,12 +1,12 @@
-class Stepscreen::Lesson
+class Palmade::Stepscreen::Lesson
 
   def self.get(id, manual_id)
-    unless ::Stepscreen.initialized?
+    unless Palmade::Stepscreen.initialized?
       raise "Stepscreen is not initialized properly"
     end
 
-    url = "http://#{::Stepscreen.account}.screenstepslive.com/spaces/#{::Stepscreen.space_permalink}/manuals/#{manual_id}/lessons/#{id}.xml"
-    response = Palmade::HttpService::Http.get(url, nil, ::Stepscreen.prepare_headers)
+    url = "http://#{Palmade::Stepscreen.account}.screenstepslive.com/spaces/#{Palmade::Stepscreen.space_permalink}/manuals/#{manual_id}/lessons/#{id}.xml"
+    response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
 
     if response.success?
       self.build(response.xml_read).first
@@ -16,12 +16,12 @@ class Stepscreen::Lesson
   end
 
   def self.with_tags(tags)
-    unless ::Stepscreen.initialized?
+    unless Palmade::Stepscreen.initialized?
       raise "Stepscreen is not initialized properly"
     end
 
-    url = "http://#{::Stepscreen.account}.screenstepslive.com/spaces/#{::Stepscreen.space_permalink}/tags.xml?tag=#{tags}"
-    response = Palmade::HttpService::Http.get(url, nil, ::Stepscreen.prepare_headers)
+    url = "http://#{Palmade::Stepscreen.account}.screenstepslive.com/spaces/#{Palmade::Stepscreen.space_permalink}/tags.xml?tag=#{tags}"
+    response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
 
     if response.success?
       self.build(response.xml_read)
