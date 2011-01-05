@@ -4,10 +4,6 @@
 require 'base64'
 require 'libxml'
 
-unless defined?(Palmade::HttpService)
-  raise "Please load HttpService gem!"
-end
-
 STEPSCREEN_LIB_DIR = File.dirname(__FILE__) unless defined?(STEPSCREEN_LIB_DIR)
 STEPSCREEN_ROOT_DIR = File.join(STEPSCREEN_LIB_DIR, '..') unless defined?(STEPSCREEN_ROOT_DIR)
 
@@ -34,6 +30,7 @@ module Palmade
       end
     end
 
+    autoload :Http, File.join(STEPSCREEN_LIB_DIR, 'stepscreen/http')
     autoload :Space, File.join(STEPSCREEN_LIB_DIR, 'stepscreen/space')
     autoload :Lesson, File.join(STEPSCREEN_LIB_DIR, 'stepscreen/lesson')
   end
