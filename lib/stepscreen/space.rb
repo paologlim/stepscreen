@@ -11,10 +11,10 @@ class Stepscreen::Space
     end
 
     url = "http://#{::Stepscreen.account}.screenstepslive.com/spaces/#{permalink}.xml"
-    response = Palmade::Http.get(url, nil, ::Stepscreen.prepare_headers)
+    response = Palmade::HttpService::Http.get(url, nil, ::Stepscreen.prepare_headers)
 
     if response.success?
-      new(response.xml_parse)
+      new(response.xml_read)
     else
       nil
     end

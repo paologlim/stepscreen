@@ -6,10 +6,10 @@ class Stepscreen::Lesson
     end
 
     url = "http://#{::Stepscreen.account}.screenstepslive.com/spaces/#{::Stepscreen.space_permalink}/manuals/#{manual_id}/lessons/#{id}.xml"
-    response = Palmade::Http.get(url, nil, ::Stepscreen.prepare_headers)
+    response = Palmade::HttpService::Http.get(url, nil, ::Stepscreen.prepare_headers)
 
     if response.success?
-      self.build(response.xml_parse).first
+      self.build(response.xml_read).first
     else
       nil
     end
@@ -21,10 +21,10 @@ class Stepscreen::Lesson
     end
 
     url = "http://#{::Stepscreen.account}.screenstepslive.com/spaces/#{::Stepscreen.space_permalink}/tags.xml?tag=#{tags}"
-    response = Palmade::Http.get(url, nil, ::Stepscreen.prepare_headers)
+    response = Palmade::HttpService::Http.get(url, nil, ::Stepscreen.prepare_headers)
 
     if response.success?
-      self.build(response.xml_parse)
+      self.build(response.xml_read)
     else
       nil
     end

@@ -1,5 +1,5 @@
-unless defined?(Palmade)
-  raise "Please load palmade_extensions first!"
+unless defined?(Palmade::HttpService)
+  raise "Please load HttpService gem!"
 end
 
 STEPSCREEN_LIB_DIR = File.dirname(__FILE__) unless defined?(STEPSCREEN_LIB_DIR)
