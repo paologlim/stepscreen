@@ -1,12 +1,15 @@
 module Palmade::Stepscreen
   class Lesson
 
+    GET_URL = "http://%s.screenstepslive.com/spaces/%s/manuals/%d/lessons/%d.xml".freeze
+    WITH_TAGS_URL = "http://%s.screenstepslive.com/spaces/%s/tags.xml?tag=%s".freeze
+
     def self.get(id, manual_id)
       unless Palmade::Stepscreen.initialized?
         raise "Stepscreen is not initialized properly"
       end
 
-      url = "http://#{Palmade::Stepscreen.account}.screenstepslive.com/spaces/#{Palmade::Stepscreen.space_permalink}/manuals/#{manual_id}/lessons/#{id}.xml"
+      url = build_get_url(id, manual_id)
       response = Palmade::Stepscreen::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
 
       if response.success?
@@ -21,7 +24,7 @@ module Palmade::Stepscreen
         raise "Stepscreen is not initialized properly"
       end
 
-      url = "http://#{Palmade::Stepscreen.account}.screenstepslive.com/spaces/#{Palmade::Stepscreen.space_permalink}/tags.xml?tag=#{tags}"
+      url = build_with_tags_url(tags)
       response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
 
       if response.success?
@@ -93,6 +96,14 @@ module Palmade::Stepscreen
         end
       end
       steps
+    end
+
+    def self.build_get_url(lesson_id, manual_id)
+      GET_URL % [Palmade::Stepscreen.account, Palmade::Stepscreen.space_permalink, manual_id, lesson_id]
+    end
+
+    def self.build_with_tags_url(tags)
+      WITH_TAGS_URL % [Palmade::Stepscreen.account, Palmade::Stepscreen.space_permalink, tags]
     end
   end
 end
