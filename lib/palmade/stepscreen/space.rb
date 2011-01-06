@@ -14,7 +14,7 @@ module Palmade::Stepscreen
       end
 
       url = build_get_url(permalink)
-      response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
+      response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen::Utilities.prepare_headers)
 
       if response.success?
         new(response.xml_read)

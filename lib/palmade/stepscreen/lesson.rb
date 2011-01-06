@@ -10,7 +10,7 @@ module Palmade::Stepscreen
       end
 
       url = build_get_url(id, manual_id)
-      response = Palmade::Stepscreen::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
+      response = Palmade::Stepscreen::Http.get(url, nil, Palmade::Stepscreen::Utilities.prepare_headers)
 
       if response.success?
         self.build(response.xml_read).first
@@ -25,7 +25,7 @@ module Palmade::Stepscreen
       end
 
       url = build_with_tags_url(tags)
-      response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen.prepare_headers)
+      response = Palmade::HttpService::Http.get(url, nil, Palmade::Stepscreen::Utilities.prepare_headers)
 
       if response.success?
         self.build(response.xml_read)
