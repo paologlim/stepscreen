@@ -45,19 +45,25 @@ module Palmade::Stepscreen
       end
 
       xml_records.each do |xml_record|
-        lesson = {}
+        unless record_empty?(xml_record)
+          lesson = {}
 
-        [:title, :url, :id, :description].each do |attr_name|
-          lesson[attr_name] = xml_record.find(attr_name.to_s).first.content
+          [:title, :url, :id, :description].each do |attr_name|
+            lesson[attr_name] = xml_record.find(attr_name.to_s).first.content
+          end
+
+          lesson[:tags] = build_tags(xml_record)
+          lesson[:manual_id] = build_manual_id(xml_record)
+          lesson[:steps] = build_steps(xml_record)
+
+          lessons << lesson
         end
-
-        lesson[:tags] = build_tags(xml_record)
-        lesson[:manual_id] = build_manual_id(xml_record)
-        lesson[:steps] = build_steps(xml_record)
-
-        lessons << lesson
       end
       lessons
+    end
+
+    def self.record_empty?(record)
+      record.find("title").first.nil?
     end
 
     def self.build_tags(xml_record)
